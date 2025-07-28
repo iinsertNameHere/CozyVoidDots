@@ -5,15 +5,19 @@
 <br>
 
 <h2 align="center">
-    <a href="#used_software">Setup</a> |
-    <a href="#used_software">Used Software</a> |
-    <a href="#custom_features">Custom Features</a> |
+    <a href="#setup">Setup</a> |
+    <a href="#used-software">Used Software</a> |
+    <a href="#custom-features">Custom Features</a> |
     <a href="https://github.com/elenapan/dotfiles/wiki/Gallery">Gallery</a>
 </h2>
 
 #### This repos contains the configuration and dotfiles of my Voidlinux, Sway, Gruvbox inspired setup.
 
 ## Setup
+1. Install [sway](https://swaywm.org).
+2. Install all software listed under [Used Software](#used-software).
+3. Clone this repo.
+4. Move all files from repo into your `~/.config` folder.
 
 ## Used Software
 + [sway](https://swaywm.org) (Window Manager)
