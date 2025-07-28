@@ -1,0 +1,7 @@
+;; Kanata keyboard Configuration
+
+(defsrc caps)
+
+(deflayermap leftclick_fix
+  caps mlft
+)

@@ -1,0 +1,27 @@
+# Ignore everything by default
+*
+!.gitignore
+!gallery/
+!gallery/*
+
+# Include explicitly
+!catnap/
+!catnap/config.toml
+
+!kanata/
+!kanata/*
+
+!kitty/
+!kitty/*
+
+!rofi/
+!rofi/*
+
+!sway/
+!sway/*
+!sway/wallpapers/*
+!sway/scripts/*
+!sway/scripts/askai/*
+
+!waybar/
+!waybar/*

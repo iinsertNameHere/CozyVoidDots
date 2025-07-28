@@ -1,0 +1,207 @@
+##############################################################
+#                                                            #
+#        ____                   _____          ____          #
+#       / __/    _____ ___ __  / ___/__  ___  / _(_)__ _     #
+#      _\ \| |/|/ / _ `/ // / / /__/ _ \/ _ \/ _/ / _ `/     #
+#     /___/|__,__/\_,_/\_, /  \___/\___/_//_/_//_/\_, /      #
+#                     /___/                      /___/       #
+#                                                            #
+#  A minimal SwayWM Config created by iinsert on voidlinux.  #
+#                                                            #
+##############################################################
+
+##### Auto Start #####
+
+## System stuff
+  exec dbus-update-activation-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+  exec pipewire
+  exec /usr/libexec/polkit-gnome-authentication-agent-1
+  exec autotiling -l 3
+  exec exec swaync
+  exec kanata
+
+## Clipboard history
+  exec wl-paste --type text --watch cliphist store
+  exec wl-paste --type image --watch cliphist store
+
+## Scripts
+  # Change this number to configure the low battery threshold 
+  exec bash .config/sway/scripts/battery-warn.sh 25
+
+# User Programs
+  exec "sleep 1; waybar"
+  exec "sleep 2; keepassxc"
+
+##### GTK Settings #####
+
+exec gsettings set org.gnome.desktop.interface gtk-theme 'Breeze-gtk'
+exec gsettings set org.gnome.desktop.interface icon-theme 'Gruvbox_Dark'
+
+##### Variables #####
+
+# Using Windows key as mod key
+set $mod Mod4
+
+# Default apps
+set $term kitty
+set $menu rofi -show drun
+set $browser vivaldi-stable
+set $explorer nautilus
+
+###### Idle configuration #####
+exec swayidle -w \
+        timeout 300 'bash ~/.config/sway/scripts/lockscreen.sh' \
+        timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+        before-sleep 'bash ~/.config/sway/scripts/lockscreen.sh'
+
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+# Prevent swayidle from locking screen if a browser is in fullscreen
+for_window [window_role="browser"] inhibit_idle fullscreen
+
+##### Display configuration #####
+
+# Set Wallpaper
+output * bg ~/.config/sway/wallpapers/cloud_1920x1080.png fill
+
+##### Input configuration #####
+
+input type:touchpad {
+   dwt enabled
+   tap enabled
+   natural_scroll enabled
+   middle_emulation enabled
+}
+
+input type:keyboard {
+   xkb_layout de
+   xkb_variant nodeadkeys
+}
+
+##### Key bindings #####
+# Basics:
+    bindsym $mod+q exec $term
+    bindsym $mod+f exec $browser
+    bindsym $mod+c kill
+    bindsym $mod+Space exec $menu
+    bindsym $mod+e exec $explorer    
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+    # Clipboard
+    bindsym $mod+V exec "cliphist list | rofi -dmenu | cliphist decode | wl-copy"
+
+    # Lockscreen
+    bindsym $mod+l exec "bash ~/.config/sway/scripts/lockscreen.sh"
+
+    bindsym $mod+Shift+a exec "bash ~/.config/sway/scripts/askai/askai.sh"
+
+# Moving around:
+    # Move your focus around
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+
+# Workspaces:
+    # Switch to workspace
+    bindsym $mod+1 workspace number 1
+    bindsym $mod+2 workspace number 2
+    bindsym $mod+3 workspace number 3
+    bindsym $mod+4 workspace number 4
+    bindsym $mod+5 workspace number 5
+    bindsym $mod+6 workspace number 6
+    bindsym $mod+7 workspace number 7
+    bindsym $mod+8 workspace number 8
+    bindsym $mod+9 workspace number 9
+    bindsym $mod+0 workspace number 10
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace number 1
+    bindsym $mod+Shift+2 move container to workspace number 2
+    bindsym $mod+Shift+3 move container to workspace number 3
+    bindsym $mod+Shift+4 move container to workspace number 4
+    bindsym $mod+Shift+5 move container to workspace number 5
+    bindsym $mod+Shift+6 move container to workspace number 6
+    bindsym $mod+Shift+7 move container to workspace number 7
+    bindsym $mod+Shift+8 move container to workspace number 8
+    bindsym $mod+Shift+9 move container to workspace number 9
+    bindsym $mod+Shift+0 move container to workspace number 10
+
+# Layout stuff:
+    # Switch the current container between different layout styles
+    # bindsym $mod+s layout stacking
+    # bindsym $mod+w layout tabbed
+    bindsym $mod+Shift+l layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+Shift+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+Space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+Alt+Space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+
+# Resizing containers:
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Utilities:
+    # Special keys to adjust volume via PulseAudio
+    bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+    bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -1%
+    bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +1%
+    bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+    # Special keys to adjust brightness via brightnessctl
+    bindsym --locked XF86MonBrightnessDown exec brightnessctl set 1%-
+    bindsym --locked XF86MonBrightnessUp exec brightnessctl set 1%+
+
+    bindsym $mod+Print exec grim
+
+##### Window configuration #####
+for_window [class="^.*"] border pixel 2
+
+# Set border colors
+set $active_border #c09124
+set $inactive_border #524f4a
+client.focused $active_border $active_border $active_border $active_border
+client.unfocused $inactive_border $inactive_border $inactive_border $inactive_border
+
+##############################
+
+include /etc/sway/config.d/*

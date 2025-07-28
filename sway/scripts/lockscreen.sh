@@ -1,0 +1,31 @@
+#!/bin/bash
+
+swaylock \
+  -e -f \
+  --font "DepartureMono Nerd Font" \
+  --font-size 16 \
+  --indicator-radius 100 \
+  --indicator-thickness 10 \
+  --inside-color 322d28ff \
+  --ring-color 625343ff \
+  --line-color 4b4239ff \
+  --separator-color 766451ff \
+  --text-color d4be98ff \
+  --inside-ver-color 322d28ff \
+  --ring-ver-color d4be98ff \
+  --line-ver-color d4be98ff \
+  --text-ver-color d4be98ff \
+  --inside-wrong-color 322d28ff \
+  --ring-wrong-color da4343ff \
+  --line-wrong-color da4343ff \
+  --text-wrong-color da4343ff \
+  --inside-clear-color 322d28ff \
+  --ring-clear-color 625343ff \
+  --line-clear-color 4b4239ff \
+  --text-clear-color d4be98ff \
+  --indicator-idle-visible \
+  --indicator-caps-lock \
+  --line-uses-ring \
+  --show-failed-attempts \
+  --image ~/.config/sway/wallpapers/cloud_1920x1080.png \
+  --scaling fill
