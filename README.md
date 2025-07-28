@@ -8,7 +8,7 @@
     <a href="#setup">Setup</a> |
     <a href="#used-software">Used Software</a> |
     <a href="#custom-features">Custom Features</a> |
-    <a href="https://github.com/elenapan/dotfiles/wiki/Gallery">Gallery</a>
+    <a href="#gallery">Gallery</a>
 </h2>
 
 #### This repos contains the configuration and dotfiles of my Voidlinux, Sway, Gruvbox inspired setup.
