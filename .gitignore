@@ -1,6 +1,7 @@
 # Ignore everything by default
 *
 !.gitignore
+!README.md
 !gallery/
 !gallery/*
 
