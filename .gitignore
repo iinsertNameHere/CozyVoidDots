@@ -26,3 +26,6 @@
 
 !waybar/
 !waybar/*
+
+!swaync/
+!swaync/*
