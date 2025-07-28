@@ -30,6 +30,7 @@
 + [rofi](https://github.com/davatorium/rofi) (App Launcher)
 + [kitty](https://github.com/kovidgoyal/kitty) (Terminal Emulator)
 + [kanata](https://github.com/jtroo/kanata) (Keyboard Remapper | Only needed because my Leftclick is broken..)
++ [DepartureMono Nerd Font](https://www.programmingfonts.org/#departure-mono) (Font for: kitty, waybar, rofi, swaync)
 
 ## Custom Features
 + **AskAI** (Script for asking AI a quick question without using the browser) `[MOD + Shift + A]`
@@ -37,8 +38,10 @@
 
 ## Gallery
 
-<div align="left">
-  <img src="gallery/1.png" style="max-width: 600px">
-  <img src="gallery/2.png" style="max-width: 600px">
-  <img src="gallery/3.png" style="max-width: 600px">
-</div>
+| Floating               | Autotiling             |
+| ---------------------- | ---------------------- |
+| ![1](gallery/1.png)    | ![2](gallery/2.png)    |
+
+| App Launcher           | Wallpaper              |
+| ---------------------- | ---------------------- |
+| ![3](gallery/3.png)    | ![4](gallery/4.png)    |
