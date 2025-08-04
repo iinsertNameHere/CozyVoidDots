@@ -24,11 +24,14 @@
   exec wl-paste --type text --watch cliphist store
   exec wl-paste --type image --watch cliphist store
 
+  # Wipe the clipboard db when more then 200 entries are saved
+  exec bash "if [ "$(cliphist list | wc -l)" -gt 200 ]; then cliphist wipe; fi"
+
 ## Scripts
   # Change this number to configure the low battery threshold 
   exec bash .config/sway/scripts/battery-warn.sh 25
 
-# User Programs
+## User Programs
   exec "sleep 1; waybar"
   exec "sleep 2; keepassxc"
 
@@ -44,7 +47,7 @@ set $mod Mod4
 
 # Default apps
 set $term kitty
-set $menu rofi -show drun
+set $launcher rofi -show drun
 set $browser vivaldi-stable
 set $explorer nautilus
 
@@ -85,7 +88,7 @@ input type:keyboard {
     bindsym $mod+q exec $term
     bindsym $mod+f exec $browser
     bindsym $mod+c kill
-    bindsym $mod+Space exec $menu
+    bindsym $mod+Space exec $launcher
     bindsym $mod+e exec $explorer    
 
     # Drag floating windows by holding down $mod and left mouse button.
@@ -107,7 +110,8 @@ input type:keyboard {
     # Lockscreen
     bindsym $mod+l exec "bash ~/.config/sway/scripts/lockscreen.sh"
 
-    bindsym $mod+Shift+a exec "bash ~/.config/sway/scripts/askai/askai.sh"
+    # AskAI Script
+    bindsym $mod+Shift+a exec "bash ~/.config/sway/scripts/askai/launch-askai.sh"
 
 # Moving around:
     # Move your focus around
@@ -190,13 +194,17 @@ bindsym $mod+r mode "resize"
     # Special keys to adjust brightness via brightnessctl
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 1%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 1%+
-
-    bindsym $mod+Print exec grim
+     
+    bindsym $mod+Print exec grim ~/Pictures/$(date +'%s_grim.png')
+    bindsym $mod+Alt+Print exec grim -g "$(slurp)" ~/Pictures/$(date +'%s_grim.png')
+    bindsym XF86PowerOff exec bash ~/.config/sway/scripts/powermenu.sh
 
 ##### Window configuration #####
 for_window [class="^.*"] border pixel 2
 
-# Set border colors
+# Border configuration
+gaps outer 10
+gaps inner 5
 set $active_border #c09124
 set $inactive_border #524f4a
 client.focused $active_border $active_border $active_border $active_border

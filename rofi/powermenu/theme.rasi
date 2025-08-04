@@ -1,0 +1,87 @@
+/*
+ * ROFI color theme
+ *
+ * Based on https://github.com/Murzchnvok/rofi-collection Minimal theme
+ *
+ */
+
+configuration {
+  font: "DepartureMono Nerd Font 14";
+
+  timeout {
+    delay: 10;
+    action: "kb-cancel";
+  }
+}
+
+* {
+  border: none;
+  margin: 0;
+  padding: 0;
+  spacing: 0;
+
+  border-color: none;
+
+  bg:     rgb(43, 40, 38);
+  bg-alt: #232323;
+  fg:     rgb(136, 128, 114);
+  fg-alt:rgb(85, 80, 71);
+
+  background-color: @bg;
+  text-color: @fg;
+}
+
+window {
+  transparency: "real";
+  width: 700px;
+  border-radius: 8px;
+}
+
+mainbox {
+  children: [listview];
+}
+
+listview {
+    enabled:                     true;
+    columns:                     3;
+    lines:                       1;
+    cycle:                       true;
+    dynamic:                     true;
+    scrollbar:                   false;
+    layout:                      vertical;
+    reverse:                     false;
+    fixed-height:                true;
+    fixed-columns:               true;
+    spacing:                     25px;
+    margin:                      25px;
+    cursor:                      "default";
+}
+
+element {
+    enabled: true;
+    padding: 40px 10px;
+    border-radius: 15px 30px 15px 30px;
+    cursor: pointer;
+    children: [element-text];
+}
+
+element normal.normal, element alternate.normal {
+    border: 0px 0px 5px 5px;
+    border-color: @fg;
+    background-color: @bg-alt;
+    text-color: @fg-alt;
+}
+
+element selected.normal {
+    border: 0px 0px 5px 5px;
+    border-color: rgb(155, 148, 132);   /* lighter brown */
+    background-color: #2f2f2f;          /* lighter gray than #232323 */
+    text-color: rgb(155, 148, 132);     /* lighter text */
+}
+
+element-text {
+    font:                        "feather bold 32";
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+    background-color: inherit;
+}

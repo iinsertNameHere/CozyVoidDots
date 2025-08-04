@@ -16,13 +16,10 @@
 !kitty/*
 
 !rofi/
-!rofi/*
+!rofi/**
 
 !sway/
-!sway/*
-!sway/wallpapers/*
-!sway/scripts/*
-!sway/scripts/askai/*
+!sway/**
 
 !waybar/
 !waybar/*

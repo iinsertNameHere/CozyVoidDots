@@ -12,6 +12,7 @@
         "clock",
         "cpu",
         "memory",
+        "backlight",
         "tray"
     ],
 
@@ -20,9 +21,9 @@
     ],
 
     "modules-right": [
-        "backlight",
         "pulseaudio",
         "battery",
+        "bluetooth",
         "network"
     ],
 
@@ -91,6 +92,12 @@
         "format-critical": "󰂃 {capacity}%",
         "format-charging": " {capacity}%",
         "tooltip": false
+    },
+
+    "bluetooth": {
+        "format": " {status}",
+	    "format-connected": " {device_alias}",
+        "on-click": "kitty bluetui"
     },
 
     "network": {
