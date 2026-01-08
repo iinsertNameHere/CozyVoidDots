@@ -1,7 +1,8 @@
 ;; Kanata keyboard Configuration
 
-(defsrc caps)
+(defsrc caps rshift)
 
-(deflayermap leftclick_fix
+(deflayermap touchpad_fix
   caps mlft
+  rshift mrtp
 )

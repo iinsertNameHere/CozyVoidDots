@@ -10,7 +10,7 @@ case $selected in
   "󰍁")
     bash ~/.config/sway/scripts/lockscreen.sh;;
   "")
-    loginctl reboot;;
+    rm ~/.cache/cliphist/db && loginctl reboot;;
   "⏻")
-    loginctl poweroff -i;;
+    rm ~/.cache/cliphist/db && loginctl poweroff -i;;
 esac

@@ -24,16 +24,16 @@
   exec wl-paste --type text --watch cliphist store
   exec wl-paste --type image --watch cliphist store
 
-  # Wipe the clipboard db when more then 200 entries are saved
-  exec bash "if [ "$(cliphist list | wc -l)" -gt 200 ]; then cliphist wipe; fi"
+  # Delete clipboard db from last session
+  exec rm ~/.cache/cliphist/db
 
 ## Scripts
   # Change this number to configure the low battery threshold 
   exec bash .config/sway/scripts/battery-warn.sh 25
 
 ## User Programs
-  exec "sleep 1; waybar"
-  exec "sleep 2; keepassxc"
+  exec "sleep 3; waybar"
+  exec "sleep 5; keepassxc"
 
 ##### GTK Settings #####
 
@@ -49,7 +49,7 @@ set $mod Mod4
 set $term kitty
 set $launcher rofi -show drun
 set $browser vivaldi-stable
-set $explorer nautilus
+set $explorer dbus-run-session nautilus
 
 ###### Idle configuration #####
 exec swayidle -w \
@@ -62,7 +62,8 @@ exec swayidle -w \
 # resumed. It will also lock your screen before your computer goes to sleep.
 
 # Prevent swayidle from locking screen if a browser is in fullscreen
-for_window [window_role="browser"] inhibit_idle fullscreen
+for_window [window_role="browser-window"] inhibit_idle fullscreen
+for_window [app_id="vivaldi-stable"] inhabit_idle fullscreen
 
 ##### Display configuration #####
 
@@ -97,21 +98,6 @@ input type:keyboard {
     # Change normal to inverse to use left mouse button for resizing and right
     # mouse button for dragging.
     floating_modifier $mod normal
-
-    # Reload the configuration file
-    bindsym $mod+Shift+c reload
-
-    # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-
-    # Clipboard
-    bindsym $mod+V exec "cliphist list | rofi -dmenu | cliphist decode | wl-copy"
-
-    # Lockscreen
-    bindsym $mod+l exec "bash ~/.config/sway/scripts/lockscreen.sh"
-
-    # AskAI Script
-    bindsym $mod+Shift+a exec "bash ~/.config/sway/scripts/askai/launch-askai.sh"
 
 # Moving around:
     # Move your focus around
@@ -191,13 +177,29 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -1%
     bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +1%
     bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+
     # Special keys to adjust brightness via brightnessctl
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 1%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 1%+
-     
+    
+    # Screenshot
     bindsym $mod+Print exec grim ~/Pictures/$(date +'%s_grim.png')
     bindsym $mod+Alt+Print exec grim -g "$(slurp)" ~/Pictures/$(date +'%s_grim.png')
+    
+    # Powermenu
     bindsym XF86PowerOff exec bash ~/.config/sway/scripts/powermenu.sh
+
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+    # Clipboard
+    bindsym $mod+V exec "cliphist list | rofi -dmenu | cliphist decode | wl-copy"
+
+    # Lockscreen
+    bindsym $mod+l exec "bash ~/.config/sway/scripts/lockscreen.sh"
 
 ##### Window configuration #####
 for_window [class="^.*"] border pixel 2
